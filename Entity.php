@@ -51,6 +51,7 @@ abstract class Entity
         $this->stamina = $this->stamina - $damage;
         if ($this->stamina < 1) {
             $this->isDead = true;
+            print_r($this->name." meurt sous ces coup.\n");
         }
     }
     public function __toString(): string

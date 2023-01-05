@@ -21,16 +21,16 @@ class Figth
 
     public function launch(): void
     {
-        print_r("Le combat entre " . $this->player->getName() . " et " . $this->monster->getName() . " commence!!\n");
+        print_r("//---  Le combat entre " . $this->player->getName() . " et " . $this->monster->getName() . " commence!!  ---//\n");
         $this->playerTurn();
     }
 
     // Entity turn
     private function playerTurn(): void
     {
-        print_r("//---------------------------------------------------------------------------------//\n\n");
+        print_r("//------------------------------------------------------//\n\n");
         print_r("Round " . $this->round . "\n\n");
-        print_r($this->player->getName()." : " . $this->player->getStamina() . " Stamina");
+        print_r($this->player->getName() . " : " . $this->player->getStamina() . " Stamina");
         $this->playerChoise();
         if ($this->run) {
         } else if ($this->monster->isDead()) {
@@ -43,7 +43,13 @@ class Figth
 
     private function monsterTurn(): void
     {
+        print_r("\n.");
+        sleep(1);
+        print_r(".");
+        sleep(1);
+        print_r(".\n\n");
         $this->monsterAttack();
+        sleep(1);
         if ($this->player->isDead()) {
             $this->end($this->monster);
         } else {
@@ -56,6 +62,8 @@ class Figth
     }
 
     private function playerChoise(): void
+
+
     {
         print_r("\n\nQue choississez vous de faire?\n1- Attaquer\n2- Se Soigner\n3- Fuire\n");
         $handle = fopen("php://stdin", "r");
@@ -74,7 +82,11 @@ class Figth
                 $this->playerRun();
                 break;
             case "view":
-                $this->playView();
+                $this->playSecretView();
+                $this->playerChoise();
+                break;
+            case "buff":
+                $this->playerSecretBuff();
                 $this->playerChoise();
                 break;
             default:
@@ -117,7 +129,9 @@ class Figth
             print_r("\nVous echouez dans votre tentative de fuite.\n");
         }
     }
-    private function playView(): void{
+
+    private function playSecretView(): void
+    {
         print_r("Vous observer l'ennemie.");
         sleep(1);
         print_r(".");
@@ -125,13 +139,24 @@ class Figth
         print_r(".");
         sleep(1);
         $isRun = random_int(1, 10) < 8;
-        if(random_int(1, 10) < 8){
-            print_r("\nVous remarquer que ".$this->monster->getName()." a ".$this->monster->getStamina()." Stamina. \n");
-        }
-        else{
+        if (random_int(1, 10) < 8) {
+            print_r("\nVous remarquer que " . $this->monster->getName() . " a " . $this->monster->getStamina() . " Stamina. \n");
+        } else {
             print_r("\nMalheureusement vous ne remarquer rien...");
         }
 
+    }
+
+    private function playerSecretBuff():void
+    {
+        print_r(".");
+        sleep(1);
+        print_r(".");
+        sleep(1);
+        print_r(".");
+        sleep(1);
+        print_r("\n\nUne Lumière Divine vous recouvre, vous sentez que votre force augmente grandement.\n");
+        $this->player->setPower(500);
     }
 
     //
