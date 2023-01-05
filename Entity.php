@@ -41,7 +41,9 @@ abstract class Entity
 
     public function attack(): int
     {
-        return $this->power * 2;
+        $damage = random_int($this->power-$this->power/5,$this->power+$this->power/5)*2;
+        echo $this->name." lance une attaque et inflige ".$damage." dégat\n";
+        return $damage;
     }
 
     public function getDamage(int $damage): void
@@ -51,7 +53,7 @@ abstract class Entity
             $this->isDead = true;
         }
     }
-    public function toString(): string
+    public function __toString(): string
     {
         return $this->name . " a " . $this->stamina . " de stamina, " . $this->power . " de puissance.\n";
     }
