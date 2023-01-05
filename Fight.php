@@ -3,7 +3,7 @@
 require_once("./Monster.php");
 require_once("./Player.php");
 
-class Figth
+class Fight
 {
     private Player $player;
     private Monster $monster;
@@ -65,7 +65,7 @@ class Figth
 
 
     {
-        print_r("\n\nQue choississez vous de faire?\n1- Attaquer\n2- Se Soigner\n3- Fuire\n");
+        print_r("\n\nQue choississez vous de faire?\n1- Attaquer\n2- Se Soigner\n3- Fuire\n\n");
         $handle = fopen("php://stdin", "r");
         $line = fgets($handle);
         fclose($handle);
@@ -162,7 +162,15 @@ class Figth
     //
     private function end(Entity $winner): void
     {
-        print_r($winner->getName() . " est le grand gagnant du combat!");
+        print_r("\n".$winner->getName() . " est le grand gagnant du combat!\n\n");
+        print_r("//-------------------  Fin du combat  ------------------//\n");
+        if($winner === $this->player){
+            $this->player->levelUp($this->monster->getStats());
+            print_r("Vos statistiques augmente! \n");
+            sleep(2);
+        }else{
+            print_r("GAME OVER");
+            exit();
+        }
     }
-
 }

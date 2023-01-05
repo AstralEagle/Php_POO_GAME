@@ -12,10 +12,16 @@ class Player extends Entity
     public function heal(): void
     {
         if (!$this->isDead) {
-            $regen = random_int(1, $this->power)*2;
-            print_r("Vous vous soignez de ".$regen ." point de stamina\n");
+            $regen = random_int(1, $this->power) * 2;
+            print_r("Vous vous soignez de " . $regen . " point de stamina\n");
             $this->stamina += $regen;
         }
+    }
+
+    public function levelUp(int $stats): void
+    {
+        $this->power += $stats;
+        $this->stamina += $stats;
     }
 
 
