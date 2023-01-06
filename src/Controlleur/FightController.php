@@ -1,9 +1,12 @@
 <?php
 
-require_once("./Monster.php");
-require_once("./Player.php");
+namespace App\Controlleur;
 
-class Fight
+use App\Model\AbstractEntity;
+use App\Model\Monster;
+use App\Model\Player;
+
+class FightController
 {
     private Player $player;
     private Monster $monster;
@@ -25,7 +28,7 @@ class Fight
         $this->playerTurn();
     }
 
-    // Entity turn
+    // AbstractEntity turn
     private function playerTurn(): void
     {
         print_r("//------------------------------------------------------//\n\n");
@@ -89,6 +92,9 @@ class Fight
                 $this->playerSecretBuff();
                 $this->playerChoise();
                 break;
+            case "attack":
+                $this->playerSecretAttack();
+                break;
             default:
                 print_r("Commande non reconnu");
                 $this->playerChoise();
@@ -147,7 +153,7 @@ class Fight
 
     }
 
-    private function playerSecretBuff():void
+    private function playerSecretBuff(): void
     {
         print_r(".");
         sleep(1);
@@ -155,22 +161,34 @@ class Fight
         sleep(1);
         print_r(".");
         sleep(1);
-        print_r("\n\nUne Lumière Divine vous recouvre, vous sentez que votre force augmente grandement.\n");
-        $this->player->setPower(500);
+        print_r("\n\nLe Dieu de la colère vous donner ça force, vous vous sentez beaucoup plus fort.\n");
+        $this->player->levelUp(500);
+    }
+
+    private function playerSecretAttack(): void
+    {
+        print_r("\n\nVous prennez une grande inspiration.");
+        sleep(1);
+        print_r(".");
+        sleep(1);
+        print_r(".");
+        sleep(1);
+        print_r("\n");
+
+        $this->monster->getDamage($this->player->attack() * 10);
     }
 
     //
-    private function end(Entity $winner): void
+    private function end(AbstractEntity $winner): void
     {
-        print_r("\n".$winner->getName() . " est le grand gagnant du combat!\n\n");
+        print_r("\n" . $winner->getName() . " est le grand gagnant du combat!\n\n");
         print_r("//-------------------  Fin du combat  ------------------//\n");
-        if($winner === $this->player){
+        if ($winner === $this->player) {
             $this->player->levelUp($this->monster->getStats());
             print_r("Vos statistiques augmente! \n");
             sleep(2);
-        }else{
-            print_r("GAME OVER");
-            exit();
+        } else {
+            print_r("GAME OVER\n\n\n");
         }
     }
 }
