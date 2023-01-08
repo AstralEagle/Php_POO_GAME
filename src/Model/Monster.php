@@ -4,6 +4,11 @@ namespace App\Model;
 
 final class Monster extends AbstractEntity
 {
+    /*
+     * List de monstre qui est possible de recuperer
+     * Pour en rajouter, ajouter un array dans cette array avec comme model :
+     * ["Nom du monstre",int pour Stamina, int pour sa Force, int pour l'XP en fin de combat]
+     */
     static private array $monsters = [["Slime", 7, 1, 1], ["Gobelin", 10, 3, 1], ["Orc", 15, 5, 2], ["Bandit", 17, 8, 3], ["Basilic", 40, 4, 3], ["Orgre", 60, 14, 5], ["Naga Osseux", 90, 40, 15], ["Dragon", 1500, 200, 150], ["Dieu del a colère", 40000000, 15000, 50000000]];
 
     private int $stats;
@@ -14,11 +19,13 @@ final class Monster extends AbstractEntity
         $this->stats = $stats;
     }
 
+    //Getter
     public function getStats(): int
     {
         return $this->stats;
     }
 
+    // List des Monstres dans l'array privé
     static public function getAllName()
     {
         print_r("\n\nSelectionnez le monstre que vous souhaitez affronter :\n");
@@ -27,6 +34,8 @@ final class Monster extends AbstractEntity
         }
     }
 
+
+    //  Fonction static qui pet de recuperer un Monstre par raport a son ID
     static public function getMonster($i): Monster
     {
         if ($i !== "") {

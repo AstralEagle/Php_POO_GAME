@@ -13,6 +13,7 @@ final class Player extends AbstractEntity implements InterfaceCapacite
         $this->maxStamina = 15;
     }
 
+    //  Function qui permet de se soigner
     public function heal(): void
     {
         $regen = random_int($this->power / 6, $this->power) * 2;

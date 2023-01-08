@@ -43,6 +43,7 @@ abstract class AbstractEntity
         $this->power = $power;
     }
 
+    //Function qui permet de recuperer un int qui correspont a la force de l'entité avec une petite modification
     public function attack(): int
     {
         $damage = random_int($this->power - $this->power / 5, $this->power + $this->power / 5) * 1.2;
@@ -50,6 +51,12 @@ abstract class AbstractEntity
         return $damage;
     }
 
+    /*
+     * Fonction qui fait subir des dégats à l'Entity
+     * Il y a 1 chance sur 20 que soit :
+     * - l'Entity esquive le coup
+     * - LE coup soie un coup critique
+     */
     public function getDamage(int $attack): void
     {
         $touch = random_int(0, 20);
@@ -72,6 +79,7 @@ abstract class AbstractEntity
         }
     }
 
+    // Description de l'Entity
     public function __toString(): string
     {
         return $this->name . " a " . $this->stamina . " de stamina, " . $this->power . " de puissance.\n";
